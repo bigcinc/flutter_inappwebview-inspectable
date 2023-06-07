@@ -54,6 +54,9 @@ public class InAppWebViewManager: ChannelDelegate {
     public func getDefaultUserAgent(completionHandler: @escaping (_ value: String?) -> Void) {
         if defaultUserAgent == nil {
             webViewForUserAgent = WKWebView()
+            if #available(iOS 16.4, *) {
+                webViewForUserAgent.isInspectable = true
+            }
             webViewForUserAgent?.evaluateJavaScript("navigator.userAgent") { (value, error) in
 
                 if error != nil {
